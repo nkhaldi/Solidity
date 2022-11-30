@@ -1,2 +1,3 @@
 # Solidity
-Solidity practice
+
+My Solidity learning projects
