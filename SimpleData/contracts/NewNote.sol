@@ -8,7 +8,7 @@ contract NewNote {
     uint number;
   }
 
-  mapping(string => user) public users;
+  mapping (string => user) public users;
 
   function setUser(string memory name, string memory adress, uint number) public {
     users[name] = user(name, adress, number);

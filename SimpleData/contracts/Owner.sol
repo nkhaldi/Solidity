@@ -12,7 +12,7 @@ contract Owner {
     uint number;
     uint age;
   }
-  mapping(string => user) public users;
+  mapping (string => user) public users;
 
   function setUser(string memory name, uint number, uint age) public {
     require(msg.sender == owner, "Not owner");
