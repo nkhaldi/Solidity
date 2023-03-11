@@ -13,7 +13,7 @@ contract RLottery {
     uint newTicket;
     do {
       newTicket = block.timestamp % maxNum;
-    } while (players[newTicket].ticket > 0);
+    } while (newTicket == 0 || players[newTicket].ticket > 0);
 
     players[newTicket] = player(newTicket);
     return("Your ticket", newTicket);
@@ -23,7 +23,7 @@ contract RLottery {
     uint winTicket;
     do {
       winTicket = block.timestamp % maxNum;
-    } while (players[winTicket].ticket == 0);
+    } while (winTicket == 0 || players[winTicket].ticket == 0);
 
     return("Winner", winTicket);
   }
