@@ -2,29 +2,24 @@
 pragma solidity >=0.4.22 <0.9.0;
 
 contract RLottery {
-  uint maxNum = 50;
+  uint current = 1;
+  uint maxTickets = 42;
   struct player {
     uint ticket;
   }
 
   mapping (uint => player) public players;
 
-  function getTicket() public payable returns(string memory, uint) {
-    uint newTicket;
-    do {
-      newTicket = block.timestamp % maxNum;
-    } while (newTicket == 0 || players[newTicket].ticket > 0);
-
-    players[newTicket] = player(newTicket);
-    return("Your ticket", newTicket);
+  function getTicket() public payable returns(uint) {
+    require(current < maxTickets, "SOLD OUT");
+    uint ticket = current++;
+    players[ticket] = player(ticket);
+    return(ticket);
   }
 
-  function winner() public view returns(string memory, uint) {
-    uint winTicket;
-    do {
-      winTicket = block.timestamp % maxNum;
-    } while (winTicket == 0 || players[winTicket].ticket == 0);
-
-    return("Winner", winTicket);
+  function getWinner() public view returns(uint) {
+     //uint(keccak256(abi.encodePacked(block.timestamp, msg.sender, maxTickets))) % 9;
+    uint winner = uint(block.timestamp) % maxTickets + 1;
+    return(winner);
   }
 }
